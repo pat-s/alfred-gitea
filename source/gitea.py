@@ -103,8 +103,7 @@ def main(wf):
         wf.send_feedback()
         return 0
 
-    # Create thumbnails from repo avatars - slow!
-    # thumbs = Thumbs(wf.datafile('thumbs'))
+    thumbs = Thumbs(wf.datafile('thumbs'))
 
     # Loop through the returned posts and add an item for each to
     # the list of results for Alfred
@@ -114,7 +113,7 @@ def main(wf):
                     subtitle=project['description'],
                     arg=project['html_url'],
                     valid=True,
-                    icon=wf.workflowfile('gitea-transparent.png'),
+                    icon=thumbs.thumbnail(requests.get(project['owner']['avatar_url']).url),
                     largetext=project['full_name'],
                     quicklookurl=project['html_url'],
                     copytext=project['html_url'],
@@ -122,6 +121,17 @@ def main(wf):
 
     # Send the results to Alfred as XML
     wf.send_feedback()
+
+    thumbs.save_queue()
+    if thumbs.has_queue:
+        thumbs.process_queue()
+        # TODO run in background
+        if not is_running('generate_thumbnails'):
+            run_in_background('generate_thumbnails',
+                              ['/usr/bin/python',
+                               wf.workflowfile('thumbnails.py')])
+
+    return 0
 
 if __name__ == u"__main__":
     wf = Workflow3(update_settings={
