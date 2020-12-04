@@ -2,7 +2,8 @@
 
 ## Installation
 
-1. Download the [alfredworkflow]()
+- Download the [alfredworkflow](https://github.com/pat-s/alfred-gitea/releases/download/v1.0.0/Gitea.alfredworkflow) from GitHub
+- Install from [packal](http://www.packal.org/workflow/gitea)
 
 ## Usage
 
