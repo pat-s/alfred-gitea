@@ -4,8 +4,6 @@
 
 1. Download the [alfredworkflow]()
 
-
-
 ## Usage
 
 1. Set your Gitea URL via `tea set url <url>`
@@ -31,8 +29,8 @@ Note however that this will delete everything including the URL and access token
 
 If you hold the &#x2325; (`option`) key and then hit &#x23ce; (`return`), the subfolder selection will be skipped and the repository will be opened directly.
 
-<p align="center"></p>
-<img alt="alfred-gitea-gif" src="https://media.giphy.com/media/GlHoA8FEovaNgkUlrj/source.gif"/>
+<p style="text-align:center">
+<img alt="alfred-gitea-gif" src="https://media.giphy.com/media/GlHoA8FEovaNgkUlrj/giphy.gif"/>
 </p>
 
 ## Acknowledgment
