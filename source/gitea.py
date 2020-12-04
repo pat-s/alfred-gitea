@@ -10,12 +10,14 @@ from thumbnails import Thumbs
 
 log = None
 
+
 def search_for_project(project):
     """Generate a string search key for a project"""
     elements = []
     elements.append(project['full_name'])
     elements.append(project['description'])
     return u' '.join(elements)
+
 
 def main(wf):
     # build argument parser to parse script args and collect their
@@ -41,8 +43,10 @@ def main(wf):
         return 0  # 0 means script exited cleanly
 
     if args.apiurl:
-        log.info("Setting API URL to {url}".format(url=args.apiurl+"/api/v1/repos/search"))
-        wf.settings['api_url'] = args.apiurl + "/api/v1/repos/search"
+        log.info("Setting API URL to {url}".format(
+            url=args.apiurl+"/api/v1/user/repos"))
+        wf.settings['base_url'] = args.apiurl
+        wf.settings['api_url'] = args.apiurl + "/api/v1/user/repos"
         return 0
 
     ####################################################################
@@ -91,14 +95,16 @@ def main(wf):
 
     # If script was passed a query, use it to filter projects
     if query and projects_gitea:
-        projects_gitea = wf.filter(query, projects_gitea, key=search_for_project, min_score=20)
+        projects_gitea = wf.filter(
+            query, projects_gitea, key=search_for_project, min_score=20)
 
     if not projects_gitea:  # we have no data to show, so show a warning and stop
         wf.add_item('No projects found', icon=ICON_WARNING)
         wf.send_feedback()
         return 0
 
-    thumbs = Thumbs(wf.datafile('thumbs'))
+    # Create thumbnails from repo avatars - slow!
+    # thumbs = Thumbs(wf.datafile('thumbs'))
 
     # Loop through the returned posts and add an item for each to
     # the list of results for Alfred
@@ -108,24 +114,14 @@ def main(wf):
                     subtitle=project['description'],
                     arg=project['html_url'],
                     valid=True,
-                    icon=thumbs.thumbnail(requests.get(project['owner']['avatar_url']).url),
-                    # icon=ICON_WEB,
+                    icon=wf.workflowfile('gitea-transparent.png'),
+                    largetext=project['full_name'],
+                    quicklookurl=project['html_url'],
+                    copytext=project['html_url'],
                     uid=project['id'])
 
     # Send the results to Alfred as XML
     wf.send_feedback()
-
-    thumbs.save_queue()
-    if thumbs.has_queue:
-        thumbs.process_queue()
-        # TODO run in background
-        if not is_running('generate_thumbnails'):
-            run_in_background('generate_thumbnails',
-                              ['/usr/bin/python',
-                               wf.workflowfile('thumbnails.py')])
-
-    return 0
-
 
 if __name__ == u"__main__":
     wf = Workflow3(update_settings={
