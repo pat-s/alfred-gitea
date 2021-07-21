@@ -47,6 +47,9 @@ If you hold the &#x2325; (`option`) key and then hit &#x23ce; (`return`), the su
 If you want to reset the learned behavior or switch to a new Gitea instance, call `tea reset`.
 This will delete the cache, access token and the URL.
 
+If you **only** want to delete the repo cache, call `tea clearcache`.
+This will keep the URL and API key set and only invalidate the repo cache.
+
 ## Acknowledgment
 
 - Inspired by [alfred-gitlab](https://github.com/lukewaite/alfred-gitlab)
