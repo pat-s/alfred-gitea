@@ -1,6 +1,7 @@
 # encoding: utf-8
 from workflow import Workflow, Workflow3, ICON_WEB, ICON_WARNING, ICON_INFO, web, PasswordNotFound
 # from workflow import web, Workflow3, PasswordNotFound
+import mureq
 
 # log = None
 
@@ -16,7 +17,7 @@ def get_projects(api_key, url):
 def get_project_page(api_key, url, page, list):
     log.info("Calling API page {page}".format(page=page))
     params = dict(token=api_key, per_page=100, page=page, membership='true')
-    r = web.get(url, params)
+    r = mureq.get(url, params = params)
 
     log.debug('URL: %s', url)
 
@@ -28,7 +29,7 @@ def get_project_page(api_key, url, page, list):
     # result = list + r.json()['data']
     projects_gitea = list + r.json()['data']
 
-    # log.debug(projects_gitea)
+    log.debug(projects_gitea)
 
     # count the total amounts of items from the http header
     total_count = int(r.headers.get('x-total-count'))
