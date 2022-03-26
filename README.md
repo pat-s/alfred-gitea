@@ -19,6 +19,11 @@
 
 The workflow makes calls to the `/users/repos` endpoint and will only list repos which are accessible via the given access token.
 
+**Python3 and macOS > 12.3**
+
+macOS 12.3 does not ship with a Python2 interpreter anymore, hence `alfred-gitea` versions < 2.0.0 will not work.
+Please update to `alfred-gitea` >= 2.0.0.
+
 ## Usage
 
 `tea <query>` shows all repos using the repos slug `owner/repo`
@@ -53,7 +58,9 @@ This will keep the URL and API key set and only invalidate the repo cache.
 ## Acknowledgment
 
 - Inspired by [alfred-gitlab](https://github.com/lukewaite/alfred-gitlab)
-- Powered by [Alfred-Workflow](https://www.deanishe.net/alfred-workflow/index.html) python module
+- Python2 version was initially powered by the [Alfred-Workflow](https://www.deanishe.net/alfred-workflow/index.html) python module
+- Python3 conversion was adapted from [TribuneX/alfred-gitlab](https://github.com/TribuneX/alfred-gitlab)
+- Webscraping functionality comes from [slingamn/mureq](https://github.com/slingamn/mureq)
 
 ## Misc
 
