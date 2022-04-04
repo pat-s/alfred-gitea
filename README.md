@@ -42,6 +42,8 @@ The workflow learns from usage and will sort the returned results by this criter
 ### Quick Open
 
 If you hold the &#x2325; (`option`) key and then hit &#x23ce; (`return`), the subfolder selection will be skipped and the repository will be opened directly.
+This behavior can also be set as the default by setting variable `quick_open` to `true` in the Alfred workflow options.
+Note however that this will not allow selecting a specific location (repo, settings, etc.) anymore.
 
 <p style="text-align:center">
 <img alt="alfred-gitea-gif" src="https://media.giphy.com/media/GlHoA8FEovaNgkUlrj/giphy.gif"/>
