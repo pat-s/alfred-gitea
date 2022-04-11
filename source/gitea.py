@@ -104,9 +104,9 @@ def main(wf):
     # Start update script if cached data is too old (or doesn't exist)
     if not wf.cached_data_fresh('projects_gitea', max_age=1) and not is_running('update'):
         cmd = ['/usr/bin/python3', wf.workflowfile('update.py')]
-        # run_in_background('update', cmd)
+        run_in_background('update', cmd)
         # foreground for debugging
-        run_command(cmd)
+        # run_command(cmd)
         wf.rerun = 0.5
 
     # If script was passed a query, use it to filter projects
