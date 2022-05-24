@@ -13,7 +13,7 @@
 - Download the [alfredworkflow](https://github.com/pat-s/alfred-gitea/releases/download/v1.0.0/Gitea.alfredworkflow) from GitHub
 - Install from [packal](http://www.packal.org/workflow/gitea)
 
-1. Set your Gitea Access Token via `tea set token <token>`.
+1. Set your Gitea Access Token via `tea set token <token>` or `tea set key <token>` (both do the same)
 2. Set your Gitea URL via `tea set url <url>`.
    The workflow also works without access token but will be restricted to public repos.
 
